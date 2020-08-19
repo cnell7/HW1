@@ -190,13 +190,14 @@ def domain(i, string):
     if(element(i, string) == False):
         print("ERROR -- domain")
         return exit()
-    while((string[element(i, string)] == '.')):
+    i = element(i, string)
+    while(string[i] == '.'):
+        # i = element(i, string)
         i += 1
         if(element(i, string) == False):
             print("ERROR -- domain")
             return exit()
         i = element(i, string)
-    i = element(i, string)
     i += 1
     return i
 
@@ -287,7 +288,7 @@ def main():
     pass3 = "MAIL  FROM: <he@h>"
     pass4 = "MAIL        FROM:       <123@h>"
     pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@e23456>"
-    pass6 = "MAIL FROM:<hi@e2.e4.e6.e8>"
+    pass6 = "MAIL FROM:<hi@e2.e4.e6>"
 
     fail1 = "mAIL FROM:<he@h"
     fail2 = "MAIL fROM:<he@h"
