@@ -25,8 +25,8 @@ def length_check(i, string):
 
 
 def end_check(i, string):
-    if i > (len(string) - 2):
-        True
+    if ((len(string) - i) == 2):
+        return True
     return False
 
 
@@ -190,9 +190,12 @@ def domain(i, string):
     if(element(i, string) == False):
         print("ERROR -- domain")
         return exit()
-    while(string[element(i, string)] == '.'):
+    while((string[element(i, string)] == '.')):
         i += 1
-        element(i, string)
+        if(element(i, string) == False):
+            print("ERROR -- domain")
+            return exit()
+        i = element(i, string)
     i = element(i, string)
     i += 1
     return i
@@ -214,10 +217,10 @@ def name(i, string):
         return exit()
     if(end_check(i, string)):
         return i
-    i += 1
-    if(not(let_dig_str(i, string))):
+    if(let_dig_str(i, string) == False):
         return exit()
-    return let_dig_str(i, string)
+    i = let_dig_str(i, string)
+    return i
 
 
 def letter(c):
@@ -232,11 +235,11 @@ def let_dig_str(i, string):
     #    <let-dig> | <let-dig> <let-dig-str>
     if(let_dig(string[i])):
         i += 1
-        if(length_check(i, string)):
+        if(end_check(i, string)):
             return i
         return let_dig_str(i, string)
-    else:
-        return exit()
+    elif(string[i] == '.'):
+        return i
 
 
 def let_dig(c):
@@ -283,8 +286,8 @@ def main():
     pass2 = "MAIL  FROM:<eh@h>"
     pass3 = "MAIL  FROM: <he@h>"
     pass4 = "MAIL        FROM:       <123@h>"
-    pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@idji2j>"
-    pass6 = "MAIL FROM:<hi@hi.hi.hi.hi>"
+    pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@e23456>"
+    pass6 = "MAIL FROM:<hi@e2.e4.e6.e8>"
 
     fail1 = "mAIL FROM:<he@h"
     fail2 = "MAIL fROM:<he@h"
@@ -298,6 +301,7 @@ def main():
     fail10 = "MAIL FROM:<cnell@h.hi"
     fail11 = "MAIL FROM:<cnell@he.h.i"
     fail12 = "MAIL FROM:<hi@hi.com"
+    fail13 = "MAIL FROM:<hi@hi.>"
 
     print("pass")
     print("1")
@@ -338,6 +342,8 @@ def main():
     mail_from_cmd(fail11)
     print("12 = no end >")
     mail_from_cmd(fail12)
+    print("13 = no domain after .")
+    mail_from_cmd(fail13)
 
 
 main()
