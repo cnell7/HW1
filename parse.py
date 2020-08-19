@@ -11,13 +11,23 @@
 #   UNC Honor Pledge: I certify that no unauthorized assistance has been received or
 #       given in the completion of this work
 #       Signature: _Christian Nell__
-
+import sys
 #   Purpose: Checks to make sure the string is not incomplete at the spot it is working on
 #               so there is no indexoutofbounds exception.
+
+
 def length_check(i, string):
     if i > (len(string) - 1):
         print("ERROR -- incomplete input")
         return exit()
+    return True
+#   Purpose: To check if last char before ">" in domain.
+
+
+def end_check(i, string):
+    if i > (len(string) - 2):
+        True
+    return False
 
 
 def exit():
@@ -89,7 +99,7 @@ def nullspace(i, string):
 
 def null(i, string):
     #   no character
-    if (length_check(i, string) == False):
+    if (not(length_check(i, string))):
         return True
     return exit()
 
@@ -109,8 +119,13 @@ def path(i, string):
     #    <mailbox>
     if (mailbox(i, string) == False):
         return exit()
-    return mailbox(i, string)
+    i = mailbox(i, string)
     #   ">"
+    if(not(string[i] == ">")):
+        return exit()
+    if(length_check(i, string)):
+        return True
+    print("ERROR -- path")
 
 
 def mailbox(i, string):
@@ -122,11 +137,13 @@ def mailbox(i, string):
     if(not(string[i] == '@')):
         print("ERROR -- mailbox")
         return exit
+    if(not(length_check(i, string))):
+        return exit()
     i += 1
     #   <domain>
     if (domain(i, string) == False):
         return exit()
-    return i
+    return domain(i, string)
 
 
 def local_part(i, string):
@@ -163,26 +180,44 @@ def char(c):
 
 def domain(i, string):
     #    <element> | <element> "." <domain>
+    '''
     while i != (len(string)):
         if special(string[i]):
             print("ERROR -- domain")
             return exit()
         i += 1
+    '''
+    if(element(i, string) == False):
+        print("ERROR -- domain")
+        return exit()
+    while(string[element(i, string)] == '.'):
+        i += 1
+        element(i, string)
+    i = element(i, string)
+    i += 1
     return i
 
 
-def element():
+def element(i, string):
     #   <letter> | <name>
-    return null
+    if(name(i, string) != False):
+        return name(i, string)
+    elif(letter(string[i])):
+        return i
+    else:
+        return exit()
 
 
 def name(i, string):
     #   <letter> <let-dig-str>
-    if(letter(string[i]) == False):
+    if(not(letter(string[i]))):
         return exit()
-    i = letter(string[i])
-    if(let_dig_str(i, string) == False):
+    if(end_check(i, string)):
+        return i
+    i += 1
+    if(not(let_dig_str(i, string))):
         return exit()
+    return let_dig_str(i, string)
 
 
 def letter(c):
@@ -195,7 +230,13 @@ def letter(c):
 
 def let_dig_str(i, string):
     #    <let-dig> | <let-dig> <let-dig-str>
-    return let_dig(string[i])
+    if(let_dig(string[i])):
+        i += 1
+        if(length_check(i, string)):
+            return i
+        return let_dig_str(i, string)
+    else:
+        return exit()
 
 
 def let_dig(c):
@@ -233,13 +274,17 @@ def special(c):
 def main():
     # Get user input from keyboard
     # mail_from = raw_input()
-
-    pass1 = "MAIL FROM:<he@he"
-    pass2 = "MAIL  FROM:<eh@h"
-    pass3 = "MAIL  FROM: <he@h"
-    pass4 = "MAIL        FROM:       <123@h"
-    pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@idji2j"
-    pass6 = "MAIL FROM:<hi@hi.hi.hi.hi"
+    '''
+    for line in sys.stdin:
+        if 'q' == line.rstrip():
+            break
+            '''
+    pass1 = "MAIL FROM:<he@h>"
+    pass2 = "MAIL  FROM:<eh@h>"
+    pass3 = "MAIL  FROM: <he@h>"
+    pass4 = "MAIL        FROM:       <123@h>"
+    pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@idji2j>"
+    pass6 = "MAIL FROM:<hi@hi.hi.hi.hi>"
 
     fail1 = "mAIL FROM:<he@h"
     fail2 = "MAIL fROM:<he@h"
@@ -252,6 +297,7 @@ def main():
     fail9 = "MAIL FROM:<hi\@dd"
     fail10 = "MAIL FROM:<cnell@h.hi"
     fail11 = "MAIL FROM:<cnell@he.h.i"
+    fail12 = "MAIL FROM:<hi@hi.com"
 
     print("pass")
     print("1")
@@ -290,6 +336,8 @@ def main():
     mail_from_cmd(fail10)
     print("11 = domain")
     mail_from_cmd(fail11)
+    print("12 = no end >")
+    mail_from_cmd(fail12)
 
 
 main()
