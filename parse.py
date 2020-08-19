@@ -127,6 +127,7 @@ def mailbox(i, string):
 
 
 def local_part(i, string):
+    local_part_start = i
     if(string_(i, string) == False):
         print("ERROR -- local-part")
         return exit()
@@ -246,6 +247,8 @@ def main():
     mail_from_cmd(pass4)
     print("5")
     mail_from_cmd(pass5)
+    print("6")
+    mail_from_cmd(pass6)
 
     print("\nfail")
     print("1 = mail from")
