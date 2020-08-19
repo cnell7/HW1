@@ -1,29 +1,28 @@
 #   SMTP "MAIL FROM" message checker
 #   Author: Christian Nell
+#   Onyen: cnell
 #   PID: 7302-29326
 #   Date: 8/11/20
 #   Purpose: To check a Simple Mail Transfer Protocol "MAIL FROM" message
 #               and make sure it is following the correct syntax. This
 #               message tells the mail server which person is trying to
 #               email a message.
+#
+#   UNC Honor Pledge: I certify that no unauthorized assistance has been received or
+#       given in the completion of this work
+#       Signature: _Christian Nell__
+#
 
 #   Purpose: Checks to make sure the string is not incomplete at the spot it is working on
 #   Input: Counter position code is at, and the string it
 #               is checking
 #   Output: None, will close program if the string is over
 #               and therefore incomplete before end of the
-#               SSMTP check
-
-
+#               SMTP check
 def length_check(i, string):
     if i > (len(string) - 1):
         print("ERROR -- incomplete input")
         return exit()
-
-#   Purpose:
-#   Input: Counter position code is at, and the string it
-#               is checking
-#   Output: Will return the string position, i, that
 
 
 def exit():
@@ -48,52 +47,52 @@ def mail_from_cmd(string):
         return exit()
     i += 5
     #    <nullspace>
-    i = nullspace(i, string)
     if (nullspace(i, string) == False):
         return exit()
+    i = nullspace(i, string)
     #   <reverse-path>
     if (reverse_path(i, string) == False):
         return exit()
     #    <nullspace>
+    if (nullspace(i, string) == False):
+        return exit()
     i = nullspace(i, string)
     #   <CLRF>
-    CRLF(i, string)
+    CRLF(string[i])
     print("Sender ok")
     return True
 
 
 def whitespace(i, string):
-    if(SP(i, string) == False):
+    if(SP(string[i]) == False):
         print("ERROR -- whitespace")
-        return False
-    while SP(i, string):
+        return exit()
+    while SP(string[i]):
         i += 1
         length_check(i, string)
     return i
 
 
-def SP(i, string):
-    if ((" " == string[i]) or ("  " == string[i])):
+def SP(c):
+    if ((" " == c) or ("  " == c)):
         return True
     else:
-        return False
+        return exit()
 
 
 def nullspace(i, string):
     if(null(i, string) == True):
-        return False
-    if(not(SP(i, string))):
+        return exit()
+    if(not(SP(string[i]))):
         return i
     i = whitespace(i, string)
     return i
-
-    # NEEDS WORK
 
 
 def null(i, string):
     if (length_check(i, string) == False):
         return True
-    return False
+    return exit()
 
 
 def reverse_path(i, string):
@@ -105,69 +104,61 @@ def path(i, string):
     if string[i] != "<":
         print("ERROR -- path")
         return exit()
-
     i += 1
-
     #   Incomplete input check
     length_check(i, string)
-
     #    <mailbox>
     if (mailbox(i, string) == False):
-        return False
-    return i
+        return exit()
+    return mailbox(i, string)
 
 
 def mailbox(i, string):
     if (local_part(i, string) == False):
-        return False
-    i = 1 + local_part(i, string)
-
+        return exit()
+    i = local_part(i, string)
+    if(not(string[i] == '@')):
+        print("ERROR -- mailbox")
+        return exit
+    i += 1
     if (domain(i, string) == False):
-        return False
+        return exit()
     return i
 
 
 def local_part(i, string):
-    local_part_start = i
-
-    while string[i] != "@":
-        if (string_(i, string)):
-            print("ERROR -- local-part")
-            return exit()
-        if i == (len(string) - 1):
-            print("ERROR -- no @")
-            return exit()
-        i += 1
-
+    if(string_(i, string) == False):
+        print("ERROR -- local-part")
+        return exit()
+    i = string_(i, string)
     if local_part_start == i:
         print("ERROR -- local-part")
         return exit()
-
-    local_part = string[local_part_start:i]
     return i
 
 
 def string_(i, string):
-    if(special(i, string) or SP(i, string)):
+    if(char(string[i])):
+        return exit()
+    i += 1
+    length_check(i, string)
+    if(string[i] == '@'):
+        return i
+    return string_(i, string)
+
+
+def char(c):
+    if(special(c) or SP(c)):
         return True
-    else:
-        return False
-
-
-def char(i, string):
-    return null
+    return False
 
 
 def domain(i, string):
-    domain_start = i
-
     while i != (len(string)):
-        if special(i, string):
+        if special(string[i]):
             print("ERROR -- domain")
             return exit()
         i += 1
-
-    domain = string[domain_start:i]
     return i
 
 
@@ -175,47 +166,62 @@ def element():
     return null
 
 
-def name():
-    return null
+def name(i, string):
+    if(letter(string[i]) == False):
+        return exit()
+    i = letter(string[i])
+    if(let_dig_str(i, string) == False):
+        return exit()
 
 
-def letter():
-    return null
-
-
-def let_dig_str():
-    return null
-
-
-def let_dig():
-    return null
-
-
-def digit():
-    return null
-
-
-def CRLF(i, string):
-    return null
-
-
-def special(i, string):
-    special_list = ["<", ">", "(", ")", "[", "]",
-                    "\'", ".", ",", ";", ":", "@", '"']
-    if string[i] in special_list:
+def letter(c):
+    if c.isalpha():
         return True
-    else:
-        return False
+    return exit()
+
+
+def let_dig_str(i, string):
+    return let_dig(string[i])
+
+
+def let_dig(c):
+    if(letter(c) | digit(c)):
+        return True
+    return False
+
+
+def digit(c):
+    digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    if c in digits:
+        return True
+    return exit()
+
+
+def CRLF(c):
+    if(c == '\n'):
+        print("ERROR -- CRLF")
+        return exit()
+    return True
+
+
+def special(c):
+    special_list = ['<', '>', '(', ')', '[', ']',
+                    '\\', '.', ',', ';', ':', '@', '"']
+    if c in special_list:
+        return True
+    return False
 
 
 def main():
     # Get user input from keyboard
     # mail_from = raw_input()
 
-    pass1 = "MAIL FROM:<he@h"
+    pass1 = "MAIL FROM:<he@he"
     pass2 = "MAIL  FROM:<eh@h"
     pass3 = "MAIL  FROM: <he@h"
-    pass4 = "MAIL        FROM:       <heh@h"
+    pass4 = "MAIL        FROM:       <123@h"
+    pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@idji2j"
+    pass6 = "MAIL FROM:<hi@hi.hi.hi.hi"
 
     fail1 = "mAIL FROM:<he@h"
     fail2 = "MAIL fROM:<he@h"
@@ -225,6 +231,9 @@ def main():
     fail6 = "MAILFROM:<"
     fail7 = "MAIL ! FROM:<hi@hi"
     fail8 = "MAIL! FROM:<hi@hi"
+    fail9 = "MAIL FROM:<hi\@dd"
+    fail10 = "MAIL FROM:<cnell@h.hi"
+    fail11 = "MAIL FROM:<cnell@he.h.i"
 
     print("pass")
     print("1")
@@ -235,6 +244,8 @@ def main():
     mail_from_cmd(pass3)
     print("4")
     mail_from_cmd(pass4)
+    print("5")
+    mail_from_cmd(pass5)
 
     print("\nfail")
     print("1 = mail from")
@@ -253,6 +264,12 @@ def main():
     mail_from_cmd(fail7)
     print("8 = whitespace")
     mail_from_cmd(fail8)
+    print("9 = special in local part")
+    mail_from_cmd(fail9)
+    print("10 = domain")
+    mail_from_cmd(fail10)
+    print("11 = domain")
+    mail_from_cmd(fail11)
 
 
 main()
