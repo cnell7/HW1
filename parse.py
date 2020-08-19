@@ -25,7 +25,7 @@ def length_check(i, string):
 
 
 def end_check(i, string):
-    if ((len(string) - i) == 2):
+    if ((len(string) - i) <= 2):
         return True
     return False
 
@@ -122,6 +122,7 @@ def path(i, string):
     i = mailbox(i, string)
     #   ">"
     if(not(string[i] == ">")):
+        print("ERROR -- no >")
         return exit()
     if(length_check(i, string)):
         return True
@@ -192,12 +193,13 @@ def domain(i, string):
         return exit()
     i = element(i, string)
     while(string[i] == '.'):
-        # i = element(i, string)
         i += 1
         if(element(i, string) == False):
             print("ERROR -- domain")
             return exit()
         i = element(i, string)
+    if(not(length_check(i + 1, string))):
+        return exit()
     i += 1
     return i
 
@@ -235,6 +237,8 @@ def letter(c):
 def let_dig_str(i, string):
     #    <let-dig> | <let-dig> <let-dig-str>
     if(let_dig(string[i])):
+        if(not(length_check(i, string))):
+            return False
         i += 1
         if(end_check(i, string)):
             return i
@@ -300,9 +304,10 @@ def main():
     fail8 = "MAIL! FROM:<hi@hi"
     fail9 = "MAIL FROM:<hi\@dd"
     fail10 = "MAIL FROM:<cnell@h.hi"
-    fail11 = "MAIL FROM:<cnell@he.h.i"
+    fail11 = "MAIL FROM:<cd@."
     fail12 = "MAIL FROM:<hi@hi.com"
     fail13 = "MAIL FROM:<hi@hi.>"
+    fail14 = "MAIL FROM:<cnell@he.h.i"
 
     print("pass")
     print("1")
@@ -345,6 +350,8 @@ def main():
     mail_from_cmd(fail12)
     print("13 = no domain after .")
     mail_from_cmd(fail13)
+    print("14 = no end >.")
+    mail_from_cmd(fail14)
 
 
 main()
