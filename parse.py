@@ -11,14 +11,9 @@
 #   UNC Honor Pledge: I certify that no unauthorized assistance has been received or
 #       given in the completion of this work
 #       Signature: _Christian Nell__
-#
 
 #   Purpose: Checks to make sure the string is not incomplete at the spot it is working on
-#   Input: Counter position code is at, and the string it
-#               is checking
-#   Output: None, will close program if the string is over
-#               and therefore incomplete before end of the
-#               SMTP check
+#               so there is no indexoutofbounds exception.
 def length_check(i, string):
     if i > (len(string) - 1):
         print("ERROR -- incomplete input")
@@ -64,6 +59,7 @@ def mail_from_cmd(string):
 
 
 def whitespace(i, string):
+    #   <SP> | <SP> <whitespace>
     if(SP(string[i]) == False):
         print("ERROR -- whitespace")
         return exit()
@@ -74,6 +70,7 @@ def whitespace(i, string):
 
 
 def SP(c):
+    #    the space or tab character
     if ((" " == c) or ("  " == c)):
         return True
     else:
@@ -81,6 +78,7 @@ def SP(c):
 
 
 def nullspace(i, string):
+    #   <null> | <whitespace>
     if(null(i, string) == True):
         return exit()
     if(not(SP(string[i]))):
@@ -90,12 +88,14 @@ def nullspace(i, string):
 
 
 def null(i, string):
+    #   no character
     if (length_check(i, string) == False):
         return True
     return exit()
 
 
 def reverse_path(i, string):
+    #    <path>
     return path(i, string)
 
 
@@ -105,22 +105,25 @@ def path(i, string):
         print("ERROR -- path")
         return exit()
     i += 1
-    #   Incomplete input check
     length_check(i, string)
     #    <mailbox>
     if (mailbox(i, string) == False):
         return exit()
     return mailbox(i, string)
+    #   ">"
 
 
 def mailbox(i, string):
+    #    <local-part>
     if (local_part(i, string) == False):
         return exit()
     i = local_part(i, string)
+    #   "@"
     if(not(string[i] == '@')):
         print("ERROR -- mailbox")
         return exit
     i += 1
+    #   <domain>
     if (domain(i, string) == False):
         return exit()
     return i
@@ -128,6 +131,7 @@ def mailbox(i, string):
 
 def local_part(i, string):
     local_part_start = i
+    #   <string>
     if(string_(i, string) == False):
         print("ERROR -- local-part")
         return exit()
@@ -139,6 +143,7 @@ def local_part(i, string):
 
 
 def string_(i, string):
+    #   <char> | <char> <string>
     if(char(string[i])):
         return exit()
     i += 1
@@ -149,12 +154,15 @@ def string_(i, string):
 
 
 def char(c):
+    #   any one of the printable ASCII characters, but not any
+    #       of <special> or <SP>
     if(special(c) or SP(c)):
         return True
     return False
 
 
 def domain(i, string):
+    #    <element> | <element> "." <domain>
     while i != (len(string)):
         if special(string[i]):
             print("ERROR -- domain")
@@ -164,10 +172,12 @@ def domain(i, string):
 
 
 def element():
+    #   <letter> | <name>
     return null
 
 
 def name(i, string):
+    #   <letter> <let-dig-str>
     if(letter(string[i]) == False):
         return exit()
     i = letter(string[i])
@@ -176,22 +186,27 @@ def name(i, string):
 
 
 def letter(c):
+    #   any one of the 52 alphabetic characters A through Z
+    #       in upper case and a through z in lower case
     if c.isalpha():
         return True
     return exit()
 
 
 def let_dig_str(i, string):
+    #    <let-dig> | <let-dig> <let-dig-str>
     return let_dig(string[i])
 
 
 def let_dig(c):
+    #    <letter> | <digit>
     if(letter(c) | digit(c)):
         return True
     return False
 
 
 def digit(c):
+    #    any one of the ten digits 0 through 9
     digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     if c in digits:
         return True
@@ -199,6 +214,7 @@ def digit(c):
 
 
 def CRLF(c):
+    #    the newline character
     if(c == '\n'):
         print("ERROR -- CRLF")
         return exit()
@@ -206,6 +222,7 @@ def CRLF(c):
 
 
 def special(c):
+    #   special list ... shouldn't be in input
     special_list = ['<', '>', '(', ')', '[', ']',
                     '\\', '.', ',', ';', ':', '@', '"']
     if c in special_list:
