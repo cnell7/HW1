@@ -1,0 +1,71 @@
+    pass1 = "MAIL FROM:<he@h>"
+    pass2 = "MAIL  FROM:<eh@h>"
+    pass3 = "MAIL  FROM: <he@h>"
+    pass4 = "MAIL        FROM:       <123@h>"
+    pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@e23456>"
+    pass6 = "MAIL FROM:<hi@e2.e4.e6>"
+
+    fail1 = "mAIL FROM:<he@h"
+    fail2 = "MAIL fROM:<he@h"
+    fail3 = "MAIL FROM:< he@h"
+    fail4 = " MAIL FROM:<heh@h"
+    fail5 = "MAIL    FROM:"
+    fail6 = "MAILFROM:<"
+    fail7 = "MAIL ! FROM:<hi@hi"
+    fail8 = "MAIL! FROM:<hi@hi"
+    fail9 = "MAIL FROM:<hi\@dd"
+    fail10 = "MAIL FROM:<cnell@h.hi"
+    fail11 = "MAIL FROM:<cd@."
+    fail12 = "MAIL FROM:<hi@hi.com"
+    fail13 = "MAIL FROM:<hi@hi.>"
+    fail14 = "MAIL FROM:<cnell@he.h.i"
+    fail15 = "MAIL FROM:<"
+    fail16 = "MAIL FROM:<hi@h\d.com>
+
+    print("pass")
+    print("1")
+    mail_from_cmd(pass1)
+    print("2")
+    mail_from_cmd(pass2)
+    print("3")
+    mail_from_cmd(pass3)
+    print("4")
+    mail_from_cmd(pass4)
+    print("5")
+    mail_from_cmd(pass5)
+    print("6")
+    mail_from_cmd(pass6)
+
+    print("\nfail")
+    print("1 = mail from")
+    mail_from_cmd(fail1)
+    print("2 = mail from")
+    mail_from_cmd(fail2)
+    print("3 = local part")
+    mail_from_cmd(fail3)
+    print("4 = mail from")
+    mail_from_cmd(fail4)
+    print("5 = incomplete")
+    mail_from_cmd(fail5)
+    print("6 = whitespace")
+    mail_from_cmd(fail6)
+    print("7 = mail from")
+    mail_from_cmd(fail7)
+    print("8 = whitespace")
+    mail_from_cmd(fail8)
+    print("9 = special in local part")
+    mail_from_cmd(fail9)
+    print("10 = domain")
+    mail_from_cmd(fail10)
+    print("11 = domain")
+    mail_from_cmd(fail11)
+    print("12 = no end >")
+    mail_from_cmd(fail12)
+    print("13 = no domain after .")
+    mail_from_cmd(fail13)
+    print("14 = no end >.")
+    mail_from_cmd(fail14)
+    print("15 = incomplete input")
+    mail_from_cmd(fail15)
+    print("16 = \ in the domain")
+    mail_from_cmd(fail16)
