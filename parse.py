@@ -176,20 +176,13 @@ def string_(i, string):
 def char(c):
     #   any one of the printable ASCII characters, but not any
     #       of <special> or <SP>
-    if(special(c) or SP(c)):
+    if((special(c) or SP(c)) & (ord(c) < 128)):
         return True
     return False
 
 
 def domain(i, string):
     #    <element> | <element> "." <domain>
-    '''
-    while i != (len(string)):
-        if special(string[i]):
-            print("ERROR -- domain")
-            return exit()
-        i += 1
-    '''
     if(element(i, string) == False):
         print("ERROR -- domain")
         return exit()
@@ -202,10 +195,6 @@ def domain(i, string):
         i = element(i, string)
     if(not(length_check(i + 1, string))):
         return exit()
-    #
-    #   THIS IS WHAT CHANGES BETWEEN TESTING AND USER INPUT
-    #       IF NOT '\n' WILL BE COUNTED IN STRING LENGTH.
-    #
     i += 1
     return i
 
@@ -213,6 +202,8 @@ def domain(i, string):
 def element(i, string):
     #   <letter> | <name>
     if(name(i, string) != False):
+        if(name(i, string) == null):
+            return exit()
         return name(i, string)
     elif(letter(string[i])):
         return i
@@ -228,6 +219,8 @@ def name(i, string):
         return i
     if(let_dig_str(i, string) == False):
         return exit()
+    elif(let_dig_str(i, string) == null):
+        return null
     i = let_dig_str(i, string)
     return i
 
@@ -242,6 +235,8 @@ def letter(c):
 
 def let_dig_str(i, string):
     #    <let-dig> | <let-dig> <let-dig-str>
+    if(string[i] == '\\'):
+        return null
     if(let_dig(string[i])):
         if(not(length_check(i, string))):
             return False
@@ -287,13 +282,10 @@ def special(c):
 
 def main():
     # Get user input from keyboard
-    # mail_from = raw_input()
     '''
     for line in fileinput.input():
         line = line.rstrip()
-        # print(line[len(line)-1])
         mail_from_cmd(line)
-
     '''
     pass1 = "MAIL FROM:<he@h>"
     pass2 = "MAIL  FROM:<eh@h>"
@@ -317,6 +309,13 @@ def main():
     fail13 = "MAIL FROM:<hi@hi.>"
     fail14 = "MAIL FROM:<cnell@he.h.i"
     fail15 = "MAIL FROM:<"
+    fail16 = "MAIL FROM:<hihi@hi\dd.com>"
+    fail17 = "MAIL FROM:<h\d@hi.com>"
+    fail18 = "\MAIL FROM:<d@d>"
+    fail19 = "MAIL FROM:<\dd@hi.com>"
+    fail20 = "MAIL FROM:\<hi@hi>"
+    fail21 = "MAIL FROM:<hi@hi.d\d.comm>"
+    fail22 = hex(0)
 
     print("pass")
     print("1")
@@ -363,6 +362,20 @@ def main():
     mail_from_cmd(fail14)
     print("15 = incomplete input")
     mail_from_cmd(fail15)
+    print("16 = \ in the domain")
+    mail_from_cmd(fail16)
+    print("17 = \\")
+    mail_from_cmd(fail17)
+    print("18 = \\")
+    mail_from_cmd(fail18)
+    print("19 = \\")
+    mail_from_cmd(fail19)
+    print("20 = \\")
+    mail_from_cmd(fail20)
+    print("21 = \\")
+    mail_from_cmd(fail21)
+    print("22 = \\")
+    mail_from_cmd(fail22)
 
 
 main()
