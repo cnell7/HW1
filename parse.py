@@ -206,7 +206,7 @@ def domain(i, string):
     #   THIS IS WHAT CHANGES BETWEEN TESTING AND USER INPUT
     #       IF NOT '\n' WILL BE COUNTED IN STRING LENGTH.
     #
-    #i += 1
+    i += 1
     return i
 
 
@@ -290,6 +290,8 @@ def main():
     # mail_from = raw_input()
     '''
     for line in fileinput.input():
+        line = line.rstrip()
+        # print(line[len(line)-1])
         mail_from_cmd(line)
 
     '''
