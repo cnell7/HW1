@@ -111,11 +111,12 @@ def reverse_path(i, string):
 
 def path(i, string):
     #   "<"
-    if string[i] != "<":
+    if (string[i] != "<"):
         print("ERROR -- path")
         return exit()
     i += 1
-    length_check(i, string)
+    if(length_check(i, string) == False):
+        return exit()
     #    <mailbox>
     if (mailbox(i, string) == False):
         return exit()
@@ -284,9 +285,8 @@ def main():
     # mail_from = raw_input()
     '''
     for line in sys.stdin:
-        if 'q' == line.rstrip():
-            break
-            '''
+        mail_from_cmd(line)
+        '''
     pass1 = "MAIL FROM:<he@h>"
     pass2 = "MAIL  FROM:<eh@h>"
     pass3 = "MAIL  FROM: <he@h>"
@@ -308,6 +308,7 @@ def main():
     fail12 = "MAIL FROM:<hi@hi.com"
     fail13 = "MAIL FROM:<hi@hi.>"
     fail14 = "MAIL FROM:<cnell@he.h.i"
+    fail15 = "MAIL FROM:<"
 
     print("pass")
     print("1")
@@ -352,6 +353,8 @@ def main():
     mail_from_cmd(fail13)
     print("14 = no end >.")
     mail_from_cmd(fail14)
+    print("15 = incomplete input")
+    mail_from_cmd(fail15)
 
 
 main()
