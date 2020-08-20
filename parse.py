@@ -286,7 +286,7 @@ def main():
     '''
     for line in sys.stdin:
         mail_from_cmd(line)
-        '''
+    '''
     pass1 = "MAIL FROM:<he@h>"
     pass2 = "MAIL  FROM:<eh@h>"
     pass3 = "MAIL  FROM: <he@h>"
