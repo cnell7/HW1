@@ -12,6 +12,7 @@
 #       given in the completion of this work
 #       Signature: _Christian Nell__
 import sys
+import fileinput
 #   Purpose: Checks to make sure the string is not incomplete at the spot it is working on
 #               so there is no indexoutofbounds exception.
 
@@ -201,7 +202,11 @@ def domain(i, string):
         i = element(i, string)
     if(not(length_check(i + 1, string))):
         return exit()
-    i += 1
+    #
+    #   THIS IS WHAT CHANGES BETWEEN TESTING AND USER INPUT
+    #       IF NOT '\n' WILL BE COUNTED IN STRING LENGTH.
+    #
+    #i += 1
     return i
 
 
@@ -284,8 +289,9 @@ def main():
     # Get user input from keyboard
     # mail_from = raw_input()
     '''
-    for line in sys.stdin:
+    for line in fileinput.input():
         mail_from_cmd(line)
+
     '''
     pass1 = "MAIL FROM:<he@h>"
     pass2 = "MAIL  FROM:<eh@h>"
