@@ -285,6 +285,7 @@ def main():
     # Get user input from keyboard
     for line in fileinput.input():
         line = line.rstrip()
+        print(line)
         mail_from_cmd(line)
 
 
