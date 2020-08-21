@@ -4,6 +4,9 @@
     pass4 = "MAIL        FROM:       <123@h>"
     pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@e23456>"
     pass6 = "MAIL FROM:<hi@e2.e4.e6>"
+    pass7 = "MAIL FROM:<jeffay@cs.unc.edu>"
+    pass8 = "MAIL FROM:<a@domain.com>"
+    pass9 = "MAIL    FROM:<test@domain.com>"
 
     fail1 = "mAIL FROM:<he@h"
     fail2 = "MAIL fROM:<he@h"
@@ -20,7 +23,25 @@
     fail13 = "MAIL FROM:<hi@hi.>"
     fail14 = "MAIL FROM:<cnell@he.h.i"
     fail15 = "MAIL FROM:<"
-    fail16 = "MAIL FROM:<hi@h\d.com>
+    fail16 = "MAIL FROM:<hihi@hi\dd.com>"
+    fail17 = "MAIL FROM:<h\d@hi.com>"
+    fail18 = "\MAIL FROM:<d@d>"
+    fail19 = "MAIL FROM:<\dd@hi.com>"
+    fail20 = "MAIL FROM:\<hi@hi>"
+    fail21 = "MAIL FROM:<hi@hi.d\d.comm>"
+    fail22 = hex(0)
+    fail23 = "MAIL FROM:<test.email.with+symbol@domain.com>"
+    fail24 = "MAIL FROM:<example.com>"
+    fail25 = "MAIL FROM:<A@b@c@domain.com>"
+    fail26 = "MAIL FROM:<abc\"test\"email@domain.com>"
+    fail27 = "MAIL FROML<.test@domain.com>"
+    fail28 = "MAIL FROM:<test@domain..com>"
+    fail29 = "MAIL FROM:< test@domain.com>"
+    fail30 = "MAIL FROM:<test@domain.com >"
+    fail31 = "MAIL FROM:<test @domain.com>"
+    fail32 = "MAIL FROM:<test@domain .com>"
+    fail33 = "MAIL FROM:<test@9round.com>"
+    fail34 = "MAIL FROM:<hi\n@test.com>"
 
     print("pass")
     print("1")
@@ -35,6 +56,12 @@
     mail_from_cmd(pass5)
     print("6")
     mail_from_cmd(pass6)
+    print("7")
+    mail_from_cmd(pass7)
+    print("8")
+    mail_from_cmd(pass8)
+    print("9")
+    mail_from_cmd(pass9)
 
     print("\nfail")
     print("1 = mail from")
@@ -69,3 +96,39 @@
     mail_from_cmd(fail15)
     print("16 = \ in the domain")
     mail_from_cmd(fail16)
+    print("17 = \\")
+    mail_from_cmd(fail17)
+    print("18 = \\")
+    mail_from_cmd(fail18)
+    print("19 = \\")
+    mail_from_cmd(fail19)
+    print("20 = \\")
+    mail_from_cmd(fail20)
+    print("21 = \\")
+    mail_from_cmd(fail21)
+    print("22 = \\")
+    mail_from_cmd(fail22)
+    print("23")
+    mail_from_cmd(fail23)
+    print("24")
+    mail_from_cmd(fail24)
+    print("25")
+    mail_from_cmd(fail25)
+    print("26")
+    mail_from_cmd(fail26)
+    print("27")
+    mail_from_cmd(fail27)
+    print("28")
+    mail_from_cmd(fail28)
+    print("29")
+    mail_from_cmd(fail29)
+    print("30")
+    mail_from_cmd(fail30)
+    print("31")
+    mail_from_cmd(fail31)
+    print("32")
+    mail_from_cmd(fail32)
+    print("33")
+    mail_from_cmd(fail33)
+    print("34")
+    mail_from_cmd(fail34)

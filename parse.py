@@ -124,7 +124,7 @@ def path(i, string):
     i = mailbox(i, string)
     #   ">"
     if(not(string[i] == ">")):
-        print("ERROR -- no >")
+        print("ERROR -- path")
         return exit()
     if(length_check(i, string)):
         return True
@@ -176,7 +176,7 @@ def string_(i, string):
 def char(c):
     #   any one of the printable ASCII characters, but not any
     #       of <special> or <SP>
-    if((special(c) or SP(c)) & (ord(c) < 128)):
+    if((special(c) or SP(c)) or not(ord(c) < 128) or not(CRLF(c))):
         return True
     return False
 
@@ -204,6 +204,7 @@ def element(i, string):
     if(name(i, string) != False):
         if(name(i, string) == null):
             return exit()
+        # print(string[i])
         return name(i, string)
     elif(letter(string[i])):
         return i
@@ -241,11 +242,12 @@ def let_dig_str(i, string):
         if(not(length_check(i, string))):
             return False
         i += 1
-        if(end_check(i, string)):
+        if(end_check(i, string) & let_dig(string[i])):
             return i
         return let_dig_str(i, string)
-    elif(string[i] == '.'):
+    if(string[i] == '.'):
         return i
+    return exit()
 
 
 def let_dig(c):
@@ -266,7 +268,6 @@ def digit(c):
 def CRLF(c):
     #    the newline character
     if(c == '\n'):
-        print("ERROR -- CRLF")
         return exit()
     return True
 
@@ -282,100 +283,9 @@ def special(c):
 
 def main():
     # Get user input from keyboard
-    '''
     for line in fileinput.input():
         line = line.rstrip()
         mail_from_cmd(line)
-    '''
-    pass1 = "MAIL FROM:<he@h>"
-    pass2 = "MAIL  FROM:<eh@h>"
-    pass3 = "MAIL  FROM: <he@h>"
-    pass4 = "MAIL        FROM:       <123@h>"
-    pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@e23456>"
-    pass6 = "MAIL FROM:<hi@e2.e4.e6>"
-
-    fail1 = "mAIL FROM:<he@h"
-    fail2 = "MAIL fROM:<he@h"
-    fail3 = "MAIL FROM:< he@h"
-    fail4 = " MAIL FROM:<heh@h"
-    fail5 = "MAIL    FROM:"
-    fail6 = "MAILFROM:<"
-    fail7 = "MAIL ! FROM:<hi@hi"
-    fail8 = "MAIL! FROM:<hi@hi"
-    fail9 = "MAIL FROM:<hi\@dd"
-    fail10 = "MAIL FROM:<cnell@h.hi"
-    fail11 = "MAIL FROM:<cd@."
-    fail12 = "MAIL FROM:<hi@hi.com"
-    fail13 = "MAIL FROM:<hi@hi.>"
-    fail14 = "MAIL FROM:<cnell@he.h.i"
-    fail15 = "MAIL FROM:<"
-    fail16 = "MAIL FROM:<hihi@hi\dd.com>"
-    fail17 = "MAIL FROM:<h\d@hi.com>"
-    fail18 = "\MAIL FROM:<d@d>"
-    fail19 = "MAIL FROM:<\dd@hi.com>"
-    fail20 = "MAIL FROM:\<hi@hi>"
-    fail21 = "MAIL FROM:<hi@hi.d\d.comm>"
-    fail22 = hex(0)
-
-    print("pass")
-    print("1")
-    mail_from_cmd(pass1)
-    print("2")
-    mail_from_cmd(pass2)
-    print("3")
-    mail_from_cmd(pass3)
-    print("4")
-    mail_from_cmd(pass4)
-    print("5")
-    mail_from_cmd(pass5)
-    print("6")
-    mail_from_cmd(pass6)
-
-    print("\nfail")
-    print("1 = mail from")
-    mail_from_cmd(fail1)
-    print("2 = mail from")
-    mail_from_cmd(fail2)
-    print("3 = local part")
-    mail_from_cmd(fail3)
-    print("4 = mail from")
-    mail_from_cmd(fail4)
-    print("5 = incomplete")
-    mail_from_cmd(fail5)
-    print("6 = whitespace")
-    mail_from_cmd(fail6)
-    print("7 = mail from")
-    mail_from_cmd(fail7)
-    print("8 = whitespace")
-    mail_from_cmd(fail8)
-    print("9 = special in local part")
-    mail_from_cmd(fail9)
-    print("10 = domain")
-    mail_from_cmd(fail10)
-    print("11 = domain")
-    mail_from_cmd(fail11)
-    print("12 = no end >")
-    mail_from_cmd(fail12)
-    print("13 = no domain after .")
-    mail_from_cmd(fail13)
-    print("14 = no end >.")
-    mail_from_cmd(fail14)
-    print("15 = incomplete input")
-    mail_from_cmd(fail15)
-    print("16 = \ in the domain")
-    mail_from_cmd(fail16)
-    print("17 = \\")
-    mail_from_cmd(fail17)
-    print("18 = \\")
-    mail_from_cmd(fail18)
-    print("19 = \\")
-    mail_from_cmd(fail19)
-    print("20 = \\")
-    mail_from_cmd(fail20)
-    print("21 = \\")
-    mail_from_cmd(fail21)
-    print("22 = \\")
-    mail_from_cmd(fail22)
 
 
 main()
