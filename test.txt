@@ -1,47 +1,52 @@
-    pass1 = "MAIL FROM:<he@h>"
-    pass2 = "MAIL  FROM:<eh@h>"
-    pass3 = "MAIL  FROM: <he@h>"
-    pass4 = "MAIL        FROM:       <123@h>"
-    pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@e23456>"
-    pass6 = "MAIL FROM:<hi@e2.e4.e6>"
-    pass7 = "MAIL FROM:<jeffay@cs.unc.edu>"
-    pass8 = "MAIL FROM:<a@domain.com>"
-    pass9 = "MAIL    FROM:<test@domain.com>"
+    pass1 = "MAIL FROM:<he@h>\n"
+    pass2 = "MAIL  FROM:<eh@h>\n"
+    pass3 = "MAIL  FROM: <he@h>\n"
+    pass4 = "MAIL        FROM:       <123@h>\n"
+    pass5 = "MAIL                 FROM:          <dijie2ei2ieie2j@e23456>\n"
+    pass6 = "MAIL FROM:<hi@e2.e4.e6>\n"
+    pass7 = "MAIL FROM:<jeffay@cs.unc.edu>\n"
+    pass8 = "MAIL FROM:<a@domain.com>\n"
+    pass9 = "MAIL    FROM:<test@domain.com>\n"
+    pass10 = "MAIL\tFROM: <jeffay@cs.unc.edu>\n"
+    pass11 = "MAIL \tFROM: <jeffay@cs.unc.edu>\n"
+    pass12 = "MAIL\t \tFROM: <jeffay@cs.unc.edu>\n"
+    pass13 = "MAIL \t\tFROM: <jeffay@cs.unc.edu>\n"
+    pass14 = "MAIL  \t\tFROM:<jeffay@cs.unc.edu>\n"
 
-    fail1 = "mAIL FROM:<he@h"
-    fail2 = "MAIL fROM:<he@h"
-    fail3 = "MAIL FROM:< he@h"
-    fail4 = " MAIL FROM:<heh@h"
-    fail5 = "MAIL    FROM:"
-    fail6 = "MAILFROM:<"
-    fail7 = "MAIL ! FROM:<hi@hi"
-    fail8 = "MAIL! FROM:<hi@hi"
-    fail9 = "MAIL FROM:<hi\@dd"
-    fail10 = "MAIL FROM:<cnell@h.hi"
-    fail11 = "MAIL FROM:<cd@."
-    fail12 = "MAIL FROM:<hi@hi.com"
-    fail13 = "MAIL FROM:<hi@hi.>"
-    fail14 = "MAIL FROM:<cnell@he.h.i"
-    fail15 = "MAIL FROM:<"
-    fail16 = "MAIL FROM:<hihi@hi\dd.com>"
-    fail17 = "MAIL FROM:<h\d@hi.com>"
-    fail18 = "\MAIL FROM:<d@d>"
-    fail19 = "MAIL FROM:<\dd@hi.com>"
-    fail20 = "MAIL FROM:\<hi@hi>"
-    fail21 = "MAIL FROM:<hi@hi.d\d.comm>"
+    fail1 = "mAIL FROM:<he@h\n"
+    fail2 = "MAIL fROM:<he@h\n"
+    fail3 = "MAIL FROM:< he@h\n"
+    fail4 = " MAIL FROM:<heh@h\n"
+    fail5 = "MAIL    FROM:\n"
+    fail6 = "MAILFROM:<\n"
+    fail7 = "MAIL ! FROM:<hi@hi\n"
+    fail8 = "MAIL! FROM:<hi@hi\n"
+    fail9 = "MAIL FROM:<hi\@dd\n"
+    fail10 = "MAIL FROM:<cnell@h.hi\n"
+    fail11 = "MAIL FROM:<cd@.\n"
+    fail12 = "MAIL FROM:<hi@hi.com\n"
+    fail13 = "MAIL FROM:<hi@hi.>\n"
+    fail14 = "MAIL FROM:<cnell@he.h.i\n"
+    fail15 = "MAIL FROM:<\n"
+    fail16 = "MAIL FROM:<hihi@hi\dd.com>\n"
+    fail17 = "MAIL FROM:<h\d@hi.com>\n"
+    fail18 = "\MAIL FROM:<d@d>\n"
+    fail19 = "MAIL FROM:<\dd@hi.com>\n"
+    fail20 = "MAIL FROM:\<hi@hi>\n"
+    fail21 = "MAIL FROM:<hi@hi.d\d.comm>\n"
     fail22 = hex(0)
-    fail23 = "MAIL FROM:<test.email.with+symbol@domain.com>"
-    fail24 = "MAIL FROM:<example.com>"
-    fail25 = "MAIL FROM:<A@b@c@domain.com>"
-    fail26 = "MAIL FROM:<abc\"test\"email@domain.com>"
-    fail27 = "MAIL FROML<.test@domain.com>"
-    fail28 = "MAIL FROM:<test@domain..com>"
-    fail29 = "MAIL FROM:< test@domain.com>"
-    fail30 = "MAIL FROM:<test@domain.com >"
-    fail31 = "MAIL FROM:<test @domain.com>"
-    fail32 = "MAIL FROM:<test@domain .com>"
-    fail33 = "MAIL FROM:<test@9round.com>"
-    fail34 = "MAIL FROM:<hi\n@test.com>"
+    fail23 = "MAIL FROM:<test.email.with+symbol@domain.com>\n"
+    fail24 = "MAIL FROM:<example.com>\n"
+    fail25 = "MAIL FROM:<A@b@c@domain.com>\n"
+    fail26 = "MAIL FROM:<abc\"test\"email@domain.com>\n"
+    fail27 = "MAIL FROML<.test@domain.com>\n"
+    fail28 = "MAIL FROM:<test@domain..com>\n"
+    fail29 = "MAIL FROM:< test@domain.com>\n"
+    fail30 = "MAIL FROM:<test@domain.com >\n"
+    fail31 = "MAIL FROM:<test @domain.com>\n"
+    fail32 = "MAIL FROM:<test@domain .com>\n"
+    fail33 = "MAIL FROM:<test@9round.com>\n"
+    fail34 = "MAIL FROM:<hi\n@test.com>\n"
 
     print("pass")
     print("1")
@@ -62,51 +67,61 @@
     mail_from_cmd(pass8)
     print("9")
     mail_from_cmd(pass9)
+    print("10")
+    mail_from_cmd(pass10)
+    print("11")
+    mail_from_cmd(pass11)
+    print("12")
+    mail_from_cmd(pass12)
+    print("13")
+    mail_from_cmd(pass13)
+    print("14")
+    mail_from_cmd(pass14)
 
     print("\nfail")
-    print("1 = mail from")
+    print("1")
     mail_from_cmd(fail1)
-    print("2 = mail from")
+    print("2")
     mail_from_cmd(fail2)
-    print("3 = local part")
+    print("3")
     mail_from_cmd(fail3)
-    print("4 = mail from")
+    print("4")
     mail_from_cmd(fail4)
-    print("5 = incomplete")
+    print("5")
     mail_from_cmd(fail5)
-    print("6 = whitespace")
+    print("6")
     mail_from_cmd(fail6)
-    print("7 = mail from")
+    print("7")
     mail_from_cmd(fail7)
-    print("8 = whitespace")
+    print("8")
     mail_from_cmd(fail8)
-    print("9 = special in local part")
+    print("9")
     mail_from_cmd(fail9)
-    print("10 = domain")
+    print("10")
     mail_from_cmd(fail10)
-    print("11 = domain")
+    print("11")
     mail_from_cmd(fail11)
-    print("12 = no end >")
+    print("12")
     mail_from_cmd(fail12)
-    print("13 = no domain after .")
+    print("13")
     mail_from_cmd(fail13)
-    print("14 = no end >.")
+    print("14")
     mail_from_cmd(fail14)
-    print("15 = incomplete input")
+    print("15")
     mail_from_cmd(fail15)
-    print("16 = \ in the domain")
+    print("16")
     mail_from_cmd(fail16)
-    print("17 = \\")
+    print("17")
     mail_from_cmd(fail17)
-    print("18 = \\")
+    print("18")
     mail_from_cmd(fail18)
-    print("19 = \\")
+    print("19")
     mail_from_cmd(fail19)
-    print("20 = \\")
+    print("20")
     mail_from_cmd(fail20)
-    print("21 = \\")
+    print("21")
     mail_from_cmd(fail21)
-    print("22 = \\")
+    print("22")
     mail_from_cmd(fail22)
     print("23")
     mail_from_cmd(fail23)

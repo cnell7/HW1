@@ -196,6 +196,11 @@ def special(c):
 
 
 def main():
+    for line in sys.stdin:
+        copy = line.rstrip()
+        print(copy)
+        mail_from_cmd(line)
+    '''
     pass1 = "MAIL FROM:<he@h>\n"
     pass2 = "MAIL  FROM:<eh@h>\n"
     pass3 = "MAIL  FROM: <he@h>\n"
@@ -345,6 +350,7 @@ def main():
     mail_from_cmd(fail33)
     print("34")
     mail_from_cmd(fail34)
+    '''
 
 
 main()
