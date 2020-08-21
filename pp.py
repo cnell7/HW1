@@ -205,6 +205,11 @@ def main():
     pass7 = "MAIL FROM:<jeffay@cs.unc.edu>\n"
     pass8 = "MAIL FROM:<a@domain.com>\n"
     pass9 = "MAIL    FROM:<test@domain.com>\n"
+    pass10 = "MAIL\tFROM: <jeffay@cs.unc.edu>\n"
+    pass11 = "MAIL \tFROM: <jeffay@cs.unc.edu>\n"
+    pass12 = "MAIL\t \tFROM: <jeffay@cs.unc.edu>\n"
+    pass13 = "MAIL \t\tFROM: <jeffay@cs.unc.edu>\n"
+    pass14 = "MAIL  \t\tFROM:<jeffay@cs.unc.edu>\n"
 
     fail1 = "mAIL FROM:<he@h\n"
     fail2 = "MAIL fROM:<he@h\n"
@@ -260,6 +265,16 @@ def main():
     mail_from_cmd(pass8)
     print("9")
     mail_from_cmd(pass9)
+    print("10")
+    mail_from_cmd(pass10)
+    print("11")
+    mail_from_cmd(pass11)
+    print("12")
+    mail_from_cmd(pass12)
+    print("13")
+    mail_from_cmd(pass13)
+    print("14")
+    mail_from_cmd(pass14)
 
     print("\nfail")
     print("1")
