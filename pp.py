@@ -27,8 +27,7 @@ def mail_from_cmd(string):
     #    <whitespace>
     string = whitespace(string)
     #   "FROM:"
-    from_ = string[0:5]
-    if(not(fromString == from_)):
+    if(not(fromString == string[0:5])):
         print("ERROR -- mail-from-cmd")
         return False
     string = string[5:]
@@ -45,6 +44,7 @@ def mail_from_cmd(string):
     #   <CLRF>
     string = CRLF(string)
     if(not(string)):
+        print("ERROR -- CRLF")
         return False
     print("Sender ok")
     return True
@@ -59,7 +59,7 @@ def whitespace(string):
 
 def SP(c):
     #   the space or tab char
-    if(c == '\t' or c == ' '):
+    if(c == ' ' or c == "\t"):
         return True
     return False
 
@@ -181,7 +181,7 @@ def digit(c):
 
 def CRLF(c):
     #    the newline character
-    if(c == '\n'):
+    if(c == '\r'):
         return True
     return False
 
@@ -196,10 +196,17 @@ def special(c):
 
 
 def main():
+    with open(sys.argv[1], 'r') as file:
+        for line in file:
+            copy = line.rstrip()
+            print(copy)
+            mail_from_cmd(line)
+    '''
     for line in sys.stdin:
         copy = line.rstrip()
         print(copy)
         mail_from_cmd(line)
+    '''
     '''
     pass1 = "MAIL FROM:<he@h>\n"
     pass2 = "MAIL  FROM:<eh@h>\n"
