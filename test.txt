@@ -13,37 +13,38 @@ MAIL\t \tFROM: <jeffay@cs.unc.edu>
 MAIL \t\tFROM: <jeffay@cs.unc.edu>
 MAIL  \t\tFROM:<jeffay@cs.unc.edu>
 
-mAIL FROM:<he@h\n
-MAIL fROM:<he@h\n
-MAIL FROM:< he@h\n
- MAIL FROM:<heh@h\n
-MAIL    FROM:\n
-MAILFROM:<\n
-MAIL ! FROM:<hi@hi\n
-MAIL! FROM:<hi@hi\n
-MAIL FROM:<hi\@dd\n
-MAIL FROM:<cnell@h.hi\n
-MAIL FROM:<cd@.\n
-MAIL FROM:<hi@hi.com\n
-MAIL FROM:<hi@hi.>\n
-MAIL FROM:<cnell@he.h.i\n
-MAIL FROM:<\n
-MAIL FROM:<hihi@hi\dd.com>\n
-MAIL FROM:<h\d@hi.com>\n
-\MAIL FROM:<d@d>\n
-MAIL FROM:<\dd@hi.com>\n
-MAIL FROM:\<hi@hi>\n
-MAIL FROM:<hi@hi.d\d.comm>\n
-hex(0)\n
-MAIL FROM:<test.email.with+symbol@domain.com>\n
-MAIL FROM:<example.com>\n
-MAIL FROM:<A@b@c@domain.com>\n
-MAIL FROM:<abc\"test\"email@domain.com>\n
-MAIL FROML<.test@domain.com>\n
-MAIL FROM:<test@domain..com>\n
-MAIL FROM:< test@domain.com>\n
-MAIL FROM:<test@domain.com >\n
-MAIL FROM:<test @domain.com>\n
-MAIL FROM:<test@domain .com>\n
-MAIL FROM:<test@9round.com>\n
-MAIL FROM:<hi\n@test.com>\n
+
+mAIL FROM:<he@h
+MAIL fROM:<he@h
+MAIL FROM:< he@h
+ MAIL FROM:<heh@h
+MAIL    FROM:
+MAILFROM:<
+MAIL ! FROM:<hi@hi
+MAIL! FROM:<hi@hi
+MAIL FROM:<hi\@dd
+MAIL FROM:<cnell@h.hi
+MAIL FROM:<cd@.
+MAIL FROM:<hi@hi.com
+MAIL FROM:<hi@hi.>
+MAIL FROM:<cnell@he.h.i
+MAIL FROM:<
+MAIL FROM:<hihi@hi\dd.com>
+MAIL FROM:<h\d@hi.com>
+\MAIL FROM:<d@d>
+MAIL FROM:<\dd@hi.com>
+MAIL FROM:\<hi@hi>
+MAIL FROM:<hi@hi.d\d.comm>
+hex(0)
+MAIL FROM:<test.email.with+symbol@domain.com>
+MAIL FROM:<example.com>
+MAIL FROM:<A@b@c@domain.com>
+MAIL FROM:<abc\"test\"email@domain.com>
+MAIL FROML<.test@domain.com>
+MAIL FROM:<test@domain..com>
+MAIL FROM:< test@domain.com>
+MAIL FROM:<test@domain.com >
+MAIL FROM:<test @domain.com>
+MAIL FROM:<test@domain .com>
+MAIL FROM:<test@9round.com>
+MAIL FROM:<hi\n@test.com>

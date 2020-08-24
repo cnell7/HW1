@@ -26,7 +26,6 @@ def mail_from_cmd(string):
     string = string[4:]
     #    <whitespace>
     string = whitespace(string)
-    print(string[0])
     #   "FROM:"
     if(not(fromString == string[0:5])):
         print("ERROR -- mail-from-cmd")
@@ -117,15 +116,15 @@ def local_part(string):
 
 
 def string_(string):
-    if(char(string[0]) == False):
+    if(char(string) == False):
         return string
     return string_(string[1:])
 
 
-def char(c):
+def char(string):
     #   any one of the printable ASCII characters, but not any
     #       of <special> or <SP>
-    if(special(c) or SP(c) or not(ord(c) < 128) or CRLF(c)):
+    if(special(string[0]) or SP(string) or not(ord(string[0]) < 128) or CRLF(string[0])):
         return False
     return True
 
@@ -201,6 +200,7 @@ def special(c):
 
 
 def main():
+    '''
     with open(sys.argv[1], 'r') as file:
         for line in file:
             copy = line.rstrip()
@@ -211,7 +211,6 @@ def main():
         copy = line.rstrip()
         print(copy)
         mail_from_cmd(line)
-    '''
     '''
     pass1 = "MAIL FROM:<he@h>\n"
     pass2 = "MAIL  FROM:<eh@h>\n"
