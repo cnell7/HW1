@@ -26,6 +26,7 @@ def mail_from_cmd(string):
     string = string[4:]
     #    <whitespace>
     string = whitespace(string)
+    print(string[0])
     #   "FROM:"
     if(not(fromString == string[0:5])):
         print("ERROR -- mail-from-cmd")
@@ -52,15 +53,19 @@ def mail_from_cmd(string):
 
 def whitespace(string):
     #   <SP> | <SP> <whitespace>
-    if(not(SP(string[0]))):
+    if(SP(string) == False):
         return string[0:]
-    return whitespace(string[1:])
+    string = SP(string)
+    return whitespace(string)
 
 
-def SP(c):
+def SP(string):
     #   the space or tab char
-    if(c == ' ' or c == "\t"):
-        return True
+    if(string[0] == ' ' or string[0] == '\t'):
+        return string[1:]
+    elif(string[0] == '\\'):
+        if(string[1] == 't'):
+            return string[2:]
     return False
 
 
@@ -181,7 +186,7 @@ def digit(c):
 
 def CRLF(c):
     #    the newline character
-    if(c == '\r'):
+    if(c == '\n'):
         return True
     return False
 
