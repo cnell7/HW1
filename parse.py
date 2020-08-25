@@ -12,218 +12,184 @@
 #       given in the completion of this work
 #       Signature: _Christian Nell__
 import sys
-import fileinput
-#   Purpose: Checks to make sure the string is not incomplete at the spot it is working on
-#               so there is no indexoutofbounds exception.
-
-
-def length_check(i, string):
-    if i > (len(string) - 1):
-        print("ERROR -- incomplete input")
-        return exit()
-    return True
-#   Purpose: To check if last char before ">" in domain.
-
-
-def end_check(i, string):
-    if ((len(string) - i) <= 2):
-        return True
+#   Called to print out incorrect input before returning and showing ERROR -- token
+def exit(string):
+    counter = 0
+    copy = string
+    while(CRLF(string) == False):
+         string = string[1:]
+         counter +=1 
+    print(copy[0:counter])
     return False
-
-
-def exit():
-    return False
-
 
 def mail_from_cmd(string):
+    copy = string
     mailString = "MAIL"
     fromString = "FROM:"
-    #   "MAIL"
-    if(not(mailString == string[0:4])):
+    # MAIL
+    mail = string[0:4]
+    if(not(mailString == mail)):
+        exit(copy)
         print("ERROR -- mail-from-cmd")
-        return exit()
-    i = 4
+        return False
+    string = string[4:]
     #    <whitespace>
-    if(not(whitespace(i, string))):
-        return exit()
-    i = whitespace(i, string)
+    string = whitespace(string)
     #   "FROM:"
-    if(not(fromString == string[i:i+5])):
+    if(not(fromString == string[0:5])):
+        exit(copy)
         print("ERROR -- mail-from-cmd")
-        return exit()
-    i += 5
+        return False
+    string = string[5:]
     #    <nullspace>
-    if (nullspace(i, string) == False):
-        return exit()
-    i = nullspace(i, string)
+    string = nullspace(string)
     #   <reverse-path>
-    if (reverse_path(i, string) == False):
-        return exit()
+    string = reverse_path(string)
+    if(not(string)):
+        exit(copy)
+        return False
     #    <nullspace>
-    if (nullspace(i, string) == False):
-        return exit()
-    i = nullspace(i, string)
+    string = nullspace(string)
+    if(not(string)):
+        exit(copy)
+        print("ERROR -- nullspace")
+        return False
     #   <CLRF>
-    CRLF(string[i])
+    string = CRLF(string)
+    if(string == False):
+        exit(copy)
+        print("ERROR -- CRLF")
+        return False
+    copy = copy.rstrip()
+    #  Sender ok, and end of line
+    if(string == True):
+        print(copy)
+        print("Sender ok")
+        return True
+    copy = copy[:(len(copy) - len(string)) - 1]
+    print(copy)
+    #  Sender ok, but not end of line
     print("Sender ok")
-    return True
+    return mail_from_cmd(string)
 
 
-def whitespace(i, string):
+def whitespace(string):
     #   <SP> | <SP> <whitespace>
-    if(SP(string[i]) == False):
-        print("ERROR -- whitespace")
-        return exit()
-    while SP(string[i]):
-        i += 1
-        length_check(i, string)
-    return i
+    if(SP(string) == False):
+        return string[0:]
+    string = SP(string)
+    return whitespace(string)
 
 
-def SP(c):
-    #    the space or tab character
-    if ((" " == c) or ("  " == c)):
-        return True
-    else:
-        return exit()
-
-
-def nullspace(i, string):
-    #   <null> | <whitespace>
-    if(null(i, string) == True):
-        return exit()
-    if(not(SP(string[i]))):
-        return i
-    i = whitespace(i, string)
-    return i
-
-
-def null(i, string):
-    #   no character
-    if (not(length_check(i, string))):
-        return True
-    return exit()
-
-
-def reverse_path(i, string):
-    #    <path>
-    return path(i, string)
-
-
-def path(i, string):
-    #   "<"
-    if (string[i] != "<"):
-        print("ERROR -- path")
-        return exit()
-    i += 1
-    if(length_check(i, string) == False):
-        return exit()
-    #    <mailbox>
-    if (mailbox(i, string) == False):
-        return exit()
-    i = mailbox(i, string)
-    #   ">"
-    if(not(string[i] == ">")):
-        print("ERROR -- path")
-        return exit()
-    if(length_check(i, string)):
-        return True
-    print("ERROR -- path")
-
-
-def mailbox(i, string):
-    #    <local-part>
-    if (local_part(i, string) == False):
-        return exit()
-    i = local_part(i, string)
-    #   "@"
-    if(not(string[i] == '@')):
-        print("ERROR -- mailbox")
-        return exit
-    if(not(length_check(i, string))):
-        return exit()
-    i += 1
-    #   <domain>
-    if (domain(i, string) == False):
-        return exit()
-    return domain(i, string)
-
-
-def local_part(i, string):
-    local_part_start = i
-    #   <string>
-    if(string_(i, string) == False):
-        print("ERROR -- local-part")
-        return exit()
-    i = string_(i, string)
-    if local_part_start == i:
-        print("ERROR -- local-part")
-        return exit()
-    return i
-
-
-def string_(i, string):
-    #   <char> | <char> <string>
-    if(char(string[i])):
-        return exit()
-    i += 1
-    length_check(i, string)
-    if(string[i] == '@'):
-        return i
-    return string_(i, string)
-
-
-def char(c):
-    #   any one of the printable ASCII characters, but not any
-    #       of <special> or <SP>
-    if((special(c) or SP(c)) or not(ord(c) < 128) or not(CRLF(c))):
-        return True
+def SP(string):
+    #   the space or tab char
+    if(string[0] == ' ' or string[0] == '\t'):
+        return string[1:]
+    elif(string[0] == '\\'):
+        if(string[1] == 't'):
+            return string[2:]
     return False
 
 
-def domain(i, string):
-    #    <element> | <element> "." <domain>
-    if(element(i, string) == False):
+def nullspace(string):
+    #   <null> | <whitespace>
+    if(null(string[0])):
+        return string
+    return whitespace(string)
+
+
+def null(c):
+    #  no character
+    if((c != ' ') or (c != '\t')):
+        return False
+    return True
+
+
+def reverse_path(string):
+    #  <path>
+    return path(string)
+
+
+def path(string):
+    # "<"
+    if(string[0] != '<'):
+        print("ERROR -- path")
+        return False
+    #  <mailbox>
+    string = mailbox(string[1:])
+    if(string == False):
+        return False
+    #  ">"
+    if(string[0] != '>'):
+        print("ERROR -- path")
+        return False
+    return string[1:]
+
+
+def mailbox(string):
+    #  <local-part>
+    string = local_part(string)
+    if(string == False):
+        return False
+    #  "@"
+    if(string[0] != '@'):
+        print("ERROR -- mailbox")
+        return False
+    #  <domain>
+    string = domain(string[1:])
+    if(string == False):
+        return False
+    return string
+
+
+def local_part(string):
+    #   <string>
+    string = string_(string)
+    return string
+
+
+def string_(string):
+    #   <char> | <char> <string>
+    if(char(string) == False):
+        return string
+    return string_(string[1:])
+
+
+def char(string):
+    #   any one of the printable ASCII characters, but not any
+    #       of <special> or <SP>
+    if(special(string[0]) or SP(string) or not(ord(string[0]) < 128) or CRLF(string[0])):
+        return False
+    return True
+
+
+def domain(string):
+    #   <element> | <element> "." <domain>
+    string = element(string)
+    if(string == False):
         print("ERROR -- domain")
-        return exit()
-    i = element(i, string)
-    while(string[i] == '.'):
-        i += 1
-        if(element(i, string) == False):
-            print("ERROR -- domain")
-            return exit()
-        i = element(i, string)
-    if(not(length_check(i + 1, string))):
-        return exit()
-    i += 1
-    return i
+        return False
+    if(string[0] == '.'):
+        string = domain(string[1:])
+    return string
 
 
-def element(i, string):
-    #   <letter> | <name>
-    if(name(i, string) != False):
-        if(name(i, string) == null):
-            return exit()
-        # print(string[i])
-        return name(i, string)
-    elif(letter(string[i])):
-        return i
-    else:
-        return exit()
+def element(string):
+    #  <letter> | <name>
+    if(not(letter(string[0]))):
+        return False
+    if(name(string) != False):
+        string = name(string)
+    elif():
+        string = string[1:]
+    return string
 
 
-def name(i, string):
+def name(string):
     #   <letter> <let-dig-str>
-    if(not(letter(string[i]))):
-        return exit()
-    if(end_check(i, string)):
-        return i
-    if(let_dig_str(i, string) == False):
-        return exit()
-    elif(let_dig_str(i, string) == null):
-        return null
-    i = let_dig_str(i, string)
-    return i
+    if(not(letter(string[0]))):
+        return False
+    return let_dig_str(string)
 
 
 def letter(c):
@@ -231,28 +197,19 @@ def letter(c):
     #       in upper case and a through z in lower case
     if c.isalpha():
         return True
-    return exit()
+    return False
 
 
-def let_dig_str(i, string):
-    #    <let-dig> | <let-dig> <let-dig-str>
-    if(string[i] == '\\'):
-        return null
-    if(let_dig(string[i])):
-        if(not(length_check(i, string))):
-            return False
-        i += 1
-        if(end_check(i, string) & let_dig(string[i])):
-            return i
-        return let_dig_str(i, string)
-    if(string[i] == '.'):
-        return i
-    return exit()
+def let_dig_str(string):
+    #   <let-dig> | <let-dig> <let-dig-str>
+    if(not(let_dig(string[0]))):
+        return string
+    return let_dig_str(string[1:])
 
 
 def let_dig(c):
-    #    <letter> | <digit>
-    if(letter(c) | digit(c)):
+    #  <letter> | <digit>
+    if(letter(c) or digit(c)):
         return True
     return False
 
@@ -262,19 +219,25 @@ def digit(c):
     digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     if c in digits:
         return True
-    return exit()
+    return False
 
 
-def CRLF(c):
+def CRLF(string):
     #    the newline character
-    if(c == '\n'):
-        return exit()
-    return True
+    if(string[0] == '\n'):
+        string = string[1:]
+        if(len(string) == 0):
+            return True
+        return string[1:]
+    if(string[0] == '\\'):
+        if(string[1] == 'n'):
+            return string[2:]
+    return False
 
 
 def special(c):
     #   special list ... shouldn't be in input
-    special_list = ['<', '>', '(', ')', '[', ']',
+    special_list = ['<', '>', '(', ')','[', ']',
                     '\\', '.', ',', ';', ':', '@', '"']
     if c in special_list:
         return True
@@ -282,10 +245,8 @@ def special(c):
 
 
 def main():
-    # Get user input from keyboard
-    for line in fileinput.input():
-        line = line.rstrip()
-        print(line)
+    #  Get line of input from terminal and check in mail_from_cmd
+    for line in sys.stdin:
         mail_from_cmd(line)
 
 

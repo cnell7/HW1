@@ -47,7 +47,7 @@ def mail_from_cmd(string):
         print("ERROR -- CRLF")
         return False
     print("Sender ok")
-    return True
+    return string
 
 
 def whitespace(string):
@@ -183,10 +183,13 @@ def digit(c):
     return False
 
 
-def CRLF(c):
+def CRLF(string):
     #    the newline character
-    if(c == '\n'):
-        return True
+    if(string[0] == '\n'):
+        return string[1:]
+    if(string[0] == '\\'):
+        if(string[1] == 'n'):
+            return string[2:]
     return False
 
 
@@ -208,8 +211,6 @@ def main():
             mail_from_cmd(line)
     '''
     for line in sys.stdin:
-        copy = line.rstrip()
-        print(copy)
         mail_from_cmd(line)
     '''
     pass1 = "MAIL FROM:<he@h>\n"
