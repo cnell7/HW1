@@ -7,15 +7,18 @@ MAIL FROM:<hi@e2.e4.e6>
 MAIL FROM:<jeffay@cs.unc.edu>
 MAIL FROM:<a@domain.com>
 MAIL    FROM:<test@domain.com>
-MAIL\tFROM: <jeffay@cs.unc.edu>\nMAIL \tFROM: <jeffay@cs.unc.edu>
+
+MAIL\tFROM: <jeffay@cs.unc.edu>
+MAIL \tFROM: <jeffay@cs.unc.edu>
 MAIL\t \tFROM: <jeffay@cs.unc.edu>
 MAIL \t\tFROM: <jeffay@cs.unc.edu>
 MAIL  \t\tFROM:<jeffay@cs.unc.edu>
 MAIL \t FROM: \t <hi@hi>
 
+MAIL FROM:<jeffay@cs.unc.edu> \t 
+MAIL FROM:<jeffay@cs.unc.edu>\t \t
+MAIL\t\t\t   \t\t FROM:\t\t  \t\t    <poop@op2.com>\t   \t
 
-MAIL FROM:<hi@hi>\n
-MAIL FROM:<hi@hi>
 
 mAIL FROM:<he@h
 MAIL fROM:<he@h
@@ -51,3 +54,20 @@ MAIL FROM:<test @domain.com>
 MAIL FROM:<test@domain .com>
 MAIL FROM:<test@9round.com>
 MAIL FROM:<hi\n@test.com>
+
+
+MAILFROM:<jeffay@cs.unc.edu>
+MAIL FROM:< jeffay@cs.unc.edu>
+MAIL FROM:<j effay@cs.unc.edu>
+
+MAIL FROM:<jeff ay@cs.unc.edu>
+MAIL FROM:<jeffay @cs.unc.edu>
+MAIL FROM:<jeffay@ cs.unc.edu>
+MAIL FROM:<jeffay@c s.unc.edu>
+MAIL FROM:<jeffay@cs .unc.edu>
+MAIL FROM:<jeffay@cs. unc.edu>
+MAIL FROM:<jeffay@cs.u nc.edu>
+MAIL FROM:<jeffay@cs.un c.edu>
+MAIL FROM:<jeffay@cs.unc .edu>
+MAIL FROM:<jeffay@cs.unc.edu >
+
