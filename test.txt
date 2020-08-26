@@ -19,6 +19,26 @@ MAIL FROM:<jeffay@cs.unc.edu> \t
 MAIL FROM:<jeffay@cs.unc.edu>\t \t
 MAIL\t\t\t   \t\t FROM:\t\t  \t\t    <poop@op2.com>\t   \t
 
+ "<" | ">" | "(" | ")" | "[" | "]" | "\" | "."
+ | "," | ";" | ":" | "@" | """ 
+MAIL FROM:<j!effay@cs.unc.edu>
+MAIL FROM:<jeff#ay@cs.unc.edu>
+MAIL FROM:<je$ffay@cs.unc.edu>
+MAIL FROM:<jef%fay@cs.unc.edu>
+MAIL FROM:<je^ffay@cs.unc.edu>
+MAIL FROM:<jef&fay@cs.unc.edu>
+MAIL FROM:<jef*fay@cs.unc.edu>
+MAIL FROM:<jeff-ay@cs.unc.edu>
+MAIL FROM:<jeff_ay@cs.unc.edu>
+MAIL FROM:<jeffa=y@cs.unc.edu>
+MAIL FROM:<jeff+y@cs.unc.edu>
+MAIL FROM:<jeff/ay@cs.unc.edu>
+MAIL FROM:<jeff~ay@cs.unc.edu>
+MAIL FROM:<jef`fay@cs.unc.edu>
+MAIL FROM:<jef?fay@cs.unc.edu>
+MAIL FROM:<jef{fay@cs.unc.edu>
+MAIL FROM:<jeff}ay@cs.unc.edu>
+MAIL FROM:<とwd@awd>
 
 mAIL FROM:<he@h
 MAIL fROM:<he@h
@@ -70,4 +90,19 @@ MAIL FROM:<jeffay@cs.u nc.edu>
 MAIL FROM:<jeffay@cs.un c.edu>
 MAIL FROM:<jeffay@cs.unc .edu>
 MAIL FROM:<jeffay@cs.unc.edu >
+
+
+MAIL FROM:<je<ffay@cs.unc.edu>
+MAIL FROM:<jef>fay@cs.unc.edu>
+MAIL FROM:<jeff(ay@cs.unc.edu>
+MAIL FROM:<jeffa)y@cs.unc.edu>
+MAIL FROM:<jeff[ay@cs.unc.edu>
+MAIL FROM:<jeffa]y@cs.unc.edu>
+MAIL FROM:<jeffa\y@cs.unc.edu>
+MAIL FROM:<jeff.ay@cs.unc.edu>
+MAIL FROM:<jef,fay@cs.unc.edu>
+MAIL FROM:<jeff;ay@cs.unc.edu>
+MAIL FROM:<jeff:ay@cs.unc.edu>
+MAIL FROM:<jeff@ay@cs.unc.edu>
+MAIL FROM:<jeff"ay@cs.unc.edu>
 

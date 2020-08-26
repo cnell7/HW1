@@ -13,31 +13,35 @@
 #       Signature: _Christian Nell__
 import sys
 #   Called to print out incorrect input before returning and showing ERROR -- token
-def exit(string):
+
+
+def echo(string):
     counter = 0
     copy = string
     while(CRLF(string) == False):
-         string = string[1:]
-         counter +=1 
+        string = string[1:]
+        counter += 1
     print(copy[0:counter])
     return False
 
+
 def mail_from_cmd(string):
-    copy = string
+    echo(string)
     mailString = "MAIL"
     fromString = "FROM:"
     # MAIL
     mail = string[0:4]
     if(not(mailString == mail)):
-        exit(copy)
         print("ERROR -- mail-from-cmd")
         return False
     string = string[4:]
     #    <whitespace>
+    if(SP(string) == False):
+        print("ERROR -- whitespace")
+        return False
     string = whitespace(string)
     #   "FROM:"
     if(not(fromString == string[0:5])):
-        exit(copy)
         print("ERROR -- mail-from-cmd")
         return False
     string = string[5:]
@@ -46,28 +50,21 @@ def mail_from_cmd(string):
     #   <reverse-path>
     string = reverse_path(string)
     if(not(string)):
-        exit(copy)
         return False
     #    <nullspace>
     string = nullspace(string)
     if(not(string)):
-        exit(copy)
         print("ERROR -- nullspace")
         return False
     #   <CLRF>
     string = CRLF(string)
     if(string == False):
-        exit(copy)
         print("ERROR -- CRLF")
         return False
-    copy = copy.rstrip()
     #  Sender ok, and end of line
     if(string == True):
-        print(copy)
         print("Sender ok")
         return True
-    copy = copy[:(len(copy) - len(string)) - 1]
-    print(copy)
     #  Sender ok, but not end of line
     print("Sender ok")
     return mail_from_cmd(string)
@@ -237,7 +234,7 @@ def CRLF(string):
 
 def special(c):
     #   special list ... shouldn't be in input
-    special_list = ['<', '>', '(', ')','[', ']',
+    special_list = ['<', '>', '(', ')', '[', ']',
                     '\\', '.', ',', ';', ':', '@', '"']
     if c in special_list:
         return True
