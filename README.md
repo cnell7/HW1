@@ -26,4 +26,4 @@ in upper case and a through z in lower case
 <CRLF> ::= the newline character
 <SP> ::= the space or tab character
 <special> ::= "<" | ">" | "(" | ")" | "[" | "]" | "\" | "."
-| "," | ";" | ":" | "@" | """ 
+| "," | ";" | ":" | "@" | """  
